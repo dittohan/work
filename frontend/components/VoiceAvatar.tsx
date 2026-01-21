@@ -170,17 +170,19 @@ export default function VoiceAvatar({
       audio.onended = () => {
         setIsSpeaking(false);
         URL.revokeObjectURL(audioUrl);
-        // Always resume listening after speaking (call is active)
-        setIsMicOn(true);
-        startDeepgramListening();
+        // Resume listening after speaking
+        if (isMicOn) {
+          startDeepgramListening();
+        }
       };
 
       audio.onerror = () => {
         console.error('Audio playback error');
         setIsSpeaking(false);
         URL.revokeObjectURL(audioUrl);
-        setIsMicOn(true);
-        startDeepgramListening();
+        if (isMicOn) {
+          startDeepgramListening();
+        }
       };
 
       await audio.play();
@@ -191,12 +193,13 @@ export default function VoiceAvatar({
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.onend = () => {
         setIsSpeaking(false);
-        setIsMicOn(true);
-        startDeepgramListening();
+        if (isMicOn) {
+          startDeepgramListening();
+        }
       };
       speechSynthesis.speak(utterance);
     }
-  }, []);
+  }, [isMicOn]);
 
   // Stop Deepgram listening - defined before startDeepgramListening for reference
   const stopDeepgramListening = useCallback(() => {
