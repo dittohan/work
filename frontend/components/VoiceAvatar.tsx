@@ -587,7 +587,7 @@ Round: ${round}
             <ul className="text-slate-500 text-sm space-y-1">
               <li>• Find a quiet spot</li>
               <li>• Speak clearly</li>
-              <li>• There are no wrong questions!</li>
+              <li>• There are no wrong answers!</li>
             </ul>
           </div>
           
