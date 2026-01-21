@@ -67,7 +67,11 @@ APPROVAL_EMAIL = """Hi {full_name},
 
 Thanks for confirming! You are invited to an AI Interview.
 
-Please use this link to complete your interview: {interview_link}
+Please use the link below to complete your interview within 48 hours:
+
+{interview_link}
+
+(Note: The interview takes about 10-15 minutes. Please find a quiet space with a webcam and microphone.)
 
 Best,
 {company_name} Recruiting

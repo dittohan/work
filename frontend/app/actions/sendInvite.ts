@@ -112,7 +112,9 @@ export async function sendInterviewInvite(candidateId: number): Promise<SendInvi
             
             <p>We've reviewed your application for <strong>${jobTitle}</strong> and would like to invite you to an AI Interview.</p>
             
-            <p>This is an innovative interview experience where you'll have a conversation with our AI interviewer. It takes about 10-15 minutes and can be done at your convenience.</p>
+            <p>This is an innovative interview experience where you'll have a conversation with our AI interviewer. It takes about 10-15 minutes.</p>
+            
+            <p style="font-weight: bold; color: #333;">Please complete your interview within 48 hours of receiving this email.</p>
             
             <div style="margin: 30px 0;">
               <a href="${interviewLink}" 
@@ -223,9 +225,9 @@ export async function inviteToRound2(candidateId: number): Promise<SendInviteRes
             
             <p>You've passed Round 1 of our interview process with a score of <strong>${candidate.rating}/100</strong>. Well done!</p>
             
-            <p>We'd like to invite you to <strong>Round 2: Technical Interview</strong> for the <strong>${jobTitle}</strong> position.</p>
+            <p>We'd like to invite you to <strong>Round 2: Technical Interview</strong> for the <strong>${jobTitle}</strong> position. In this round, you'll meet with our Technical Interviewer who will dive deeper into your technical skills and experience.</p>
             
-            <p>In this round, you'll meet with our Technical Interviewer who will dive deeper into your technical skills and experience.</p>
+            <p style="font-weight: bold; color: #333;">To keep your application moving forward, please complete this step within the next 2 days.</p>
             
             <div style="margin: 30px 0;">
               <a href="${round2Link}" 
@@ -237,7 +239,7 @@ export async function inviteToRound2(candidateId: number): Promise<SendInviteRes
             <p style="color: #666; font-size: 14px;">
               <strong>What to expect:</strong><br>
               • Technical questions based on your experience<br>
-              • Deep dive into projects you've mentioned<br>
+              • Deep dive into your past projects<br>
               • About 15-20 minutes
             </p>
             
