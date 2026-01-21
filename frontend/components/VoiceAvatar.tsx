@@ -437,6 +437,9 @@ export default function VoiceAvatar({
       // Initialize user camera (optional)
       await initUserCamera();
 
+      // Auto-enable mic so listening starts after welcome message
+      setIsMicOn(true);
+
       setCallStatus('active');
 
       // Welcome message - varies by round
