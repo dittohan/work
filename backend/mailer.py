@@ -60,12 +60,14 @@ Best of luck!
 
 
 def fetch_top_candidates(supabase):
-    """Fetch graded candidates with score >= MIN_SCORE including job_description and interview_token."""
+    """Fetch graded candidates with score >= MIN_SCORE including job_description and interview_token.
+    Only fetches candidates with created_at set (excludes old/legacy candidates)."""
     result = (
         supabase.table("candidates")
         .select("id, email, full_name, jd_match_score, job_description, interview_token")
         .eq("status", "GRADED")
         .gte("jd_match_score", MIN_SCORE)
+        .not_.is_("created_at", "null")
         .execute()
     )
     return result.data
