@@ -36,6 +36,7 @@ export default function VoiceAvatar({
 
   // Media state
   const [isMicOn, setIsMicOn] = useState(false);
+  const isMicOnRef = useRef(false); // Ref for immediate access in callbacks
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -170,8 +171,8 @@ export default function VoiceAvatar({
       audio.onended = () => {
         setIsSpeaking(false);
         URL.revokeObjectURL(audioUrl);
-        // Resume listening after speaking
-        if (isMicOn) {
+        // Resume listening after speaking (use ref for immediate value)
+        if (isMicOnRef.current) {
           startDeepgramListening();
         }
       };
@@ -180,7 +181,7 @@ export default function VoiceAvatar({
         console.error('Audio playback error');
         setIsSpeaking(false);
         URL.revokeObjectURL(audioUrl);
-        if (isMicOn) {
+        if (isMicOnRef.current) {
           startDeepgramListening();
         }
       };
@@ -193,13 +194,13 @@ export default function VoiceAvatar({
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.onend = () => {
         setIsSpeaking(false);
-        if (isMicOn) {
+        if (isMicOnRef.current) {
           startDeepgramListening();
         }
       };
       speechSynthesis.speak(utterance);
     }
-  }, [isMicOn]);
+  }, []);
 
   // Stop Deepgram listening - defined before startDeepgramListening for reference
   const stopDeepgramListening = useCallback(() => {
@@ -404,8 +405,10 @@ export default function VoiceAvatar({
   const toggleMic = () => {
     if (isMicOn) {
       stopDeepgramListening();
+      isMicOnRef.current = false;
       setIsMicOn(false);
     } else {
+      isMicOnRef.current = true;
       setIsMicOn(true);
       startDeepgramListening();
     }
@@ -423,7 +426,7 @@ export default function VoiceAvatar({
     setIsSpeaking(false);
     setSubtitle('');
     // Resume listening after stopping
-    if (isMicOn) {
+    if (isMicOnRef.current) {
       startDeepgramListening();
     }
   };
@@ -438,6 +441,7 @@ export default function VoiceAvatar({
       await initUserCamera();
 
       // Auto-enable mic so listening starts after welcome message
+      isMicOnRef.current = true;
       setIsMicOn(true);
 
       setCallStatus('active');
