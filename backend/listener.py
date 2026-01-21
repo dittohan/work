@@ -91,11 +91,13 @@ Best of luck in your job search!
 
 # --- Visa Gatekeeper Functions ---
 def fetch_questionnaire_candidates(supabase):
-    """Fetch candidates who were sent the questionnaire."""
+    """Fetch candidates who were sent the questionnaire.
+    Only fetches candidates with created_at set (excludes old/legacy candidates)."""
     result = (
         supabase.table("candidates")
         .select("id, email, full_name, interview_token")
         .eq("status", "QUESTIONNAIRE_SENT")
+        .not_.is_("created_at", "null")
         .execute()
     )
     return result.data
