@@ -49,10 +49,10 @@ INVITE_EMAIL_BODY = """Hi {full_name},
 
 Great news! We've reviewed your application and would like to invite you to an AI Interview.
 
-Please use this secure link to complete your interview:
+Please complete your interview within 48 hours using this secure link:
 {interview_link}
 
-The interview takes about 10-15 minutes and can be done at your convenience.
+The interview takes about 20-30 minutes and can be done at your convenience.
 
 Best of luck!
 {company_name} Recruiting
