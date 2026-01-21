@@ -23,6 +23,7 @@ interface Candidate {
   job_title?: string;
   final_verdict: string | null;
   interview_token: string | null;
+  created_at: string | null;
 }
 
 interface Job {
@@ -55,7 +56,7 @@ export default function DashboardPage() {
         while (hasMore) {
           const { data: batch, error } = await supabase
             .from('candidates')
-            .select('id, full_name, email, rating, round_2_rating, jd_match_score, ai_summary, status, current_stage, interview_transcript, round_2_transcript, resume_text, job_id, final_verdict, interview_token')
+            .select('id, full_name, email, rating, round_2_rating, jd_match_score, ai_summary, status, current_stage, interview_transcript, round_2_transcript, resume_text, job_id, final_verdict, interview_token, created_at')
             .order('rating', { ascending: false, nullsFirst: false })
             .range(offset, offset + BATCH_SIZE - 1);
 
@@ -301,6 +302,7 @@ export default function DashboardPage() {
                 <th className="text-left text-slate-400 font-medium p-4">#</th>
                 <th className="text-left text-slate-400 font-medium p-4">Name</th>
                 <th className="text-left text-slate-400 font-medium p-4">Role</th>
+                <th className="text-left text-slate-400 font-medium p-4">Date</th>
                 <th className="text-left text-slate-400 font-medium p-4">CV</th>
                 <th className="text-left text-slate-400 font-medium p-4">Stage</th>
                 <th className="text-left text-slate-400 font-medium p-4">Scores</th>
@@ -338,6 +340,15 @@ export default function DashboardPage() {
                     <td className="p-4">
                       <span className="text-slate-300 text-sm">
                         {candidate.job_title || '—'}
+                      </span>
+                    </td>
+
+                    {/* Date Added */}
+                    <td className="p-4">
+                      <span className="text-slate-400 text-sm">
+                        {candidate.created_at 
+                          ? new Date(candidate.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })
+                          : '—'}
                       </span>
                     </td>
 
